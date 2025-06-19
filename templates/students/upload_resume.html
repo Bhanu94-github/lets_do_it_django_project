@@ -1,0 +1,80 @@
+{% extends 'students/base.html' %}
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    background-color: #f9fafb;
+    font-family: 'Inter', sans-serif;
+    color: #1f2937;
+    margin: 0;
+    padding: 0;
+  }
+
+  .resume-upload-container {
+    max-width: 600px;
+    margin: 60px auto;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 40px 32px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+  }
+
+  .resume-upload-container h2 {
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 28px;
+    color: #111827;
+  }
+
+  form p {
+    margin-bottom: 18px;
+  }
+
+  form input[type="file"] {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 15px;
+    background-color: #f3f4f6;
+    color: #374151;
+    transition: border-color 0.3s ease;
+  }
+
+  form input[type="file"]:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  }
+
+  .resume-upload-container button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+    margin-top: 20px;
+  }
+
+  .resume-upload-container button:hover {
+    background-color: #2563eb;
+  }
+</style>
+
+<div class="resume-upload-container">
+  <h2>Upload Your Resume</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Extract Skills</button>
+  </form>
+</div>
+{% endblock %}

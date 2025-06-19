@@ -1,0 +1,72 @@
+{% extends 'students/base.html' %}
+{% load static %}
+{% block title %}AI Dashboard - AetherBoard{% endblock %}
+
+{% block content %}
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'students/css/styles.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Sidebar Toggle -->
+<div class="hamburger" onclick="toggleSidebar()">☰</div>
+
+<aside class="aether-sidebar" id="sidebar">
+    <div class="logo-container">
+        <img src="{% static 'logo.webp' %}" alt="AI Dashboard Logo" class="logo-img">
+        <span class="logo-text">AI DASHBOARD</span>
+    </div>
+
+    <nav>
+        <a href="#" onclick="showSection('home')" class="active">Dashboard</a>
+        <a href="#" onclick="toggleModulesDropdown()">AI Modules</a>
+        <div id="module-links" class="nested-links">
+            <a href="#" onclick="showSection('text')">Text-to-Text</a>
+            <a href="#" onclick="showSection('voice')">Voice-to-Voice</a>
+            <a href="#" onclick="showSection('face')">Face-to-Face</a>
+        </div>
+        <a href="{% url 'resumeupload:upload_resume' %}">Resume Upload</a>
+        <a href="https://app--growth-mate-561f6f8d.base44.app" onclick="showSection('assessment')">Learning Platform</a>
+        <a href="#" onclick="showSection('interview')">Interview</a>
+        <a href="#">Results</a>
+        <a href="#" onclick="showSection('contact')">Contact Us</a>
+        <a href="#" onclick="logoutAndSaveTime()">Logout</a>
+    </nav>
+</aside>
+
+<!-- Main Area -->
+<main id="main-content" class="aether-main">
+    <!-- Dynamic Content -->
+</main>
+
+<!-- Modals -->
+<div id="text-modal" class="modal-overlay">
+    <div class="modal-card">
+        <h3>Text-to-Text Instructions</h3>
+        <ul>
+            <li>Upload your resume for skill extraction.</li>
+            <li>Select skills and difficulty.</li>
+            <li>Attempt MCQs, fill-ins, and coding questions.</li>
+            <li>Each attempt deducts 1 token.</li>
+        </ul>
+        <a class="neon-btn" href="{% url 'students:start_ai_exam' 'Text-to-Text' %}">Start Assessment</a>
+        <button class="close-btn" onclick="closeModal('text-modal')">Cancel</button>
+    </div>
+</div>
+
+<div id="voice-modal" class="modal-overlay">
+    <div class="modal-card">
+        <h3>Voice-to-Voice Instructions</h3>
+        <ul>
+            <li>Upload your resume and select skills.</li>
+            <li>AI asks 1 question per skill.</li>
+            <li>Respond using voice or code.</li>
+            <li>Each attempt deducts 1 token.</li>
+        </ul>
+        <a class="neon-btn" href="{% url 'students:start_ai_exam' 'Voice-to-Voice' %}">Start Assessment</a>
+        <button class="close-btn" onclick="closeModal('voice-modal')">Cancel</button>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script src="{% static 'students/js/main.js' %}"></script>
+{% endblock %}

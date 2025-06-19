@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Select Skills - Voice Interview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Orbitron', monospace, sans-serif;
+            background: #0e0f18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #cbd5e1;
+            overflow: hidden;
+        }
+
+        /* subtle pulsating background glow */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 120vw;
+            height: 120vh;
+            background: radial-gradient(circle at center, #7c3aed 0%, transparent 60%);
+            filter: blur(120px);
+            transform: translate(-50%, -50%);
+            animation: pulseGlow 6s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                filter: blur(100px);
+                opacity: 0.3;
+            }
+            50% {
+                filter: blur(130px);
+                opacity: 0.6;
+            }
+        }
+
+        .skill-container {
+            position: relative;
+            background: rgba(15, 15, 25, 0.6);
+            border-radius: 20px;
+            padding: 40px 50px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 0 30px 4px #7c3aed55;
+            backdrop-filter: blur(16px);
+            border: 2px solid #7c3aed;
+            z-index: 1;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: #a78bfa;
+            text-shadow: 0 0 8px #a78bfa99;
+        }
+
+        .skill-group {
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 8px;
+            margin-bottom: 30px;
+        }
+
+        /* Custom scrollbar */
+        .skill-group::-webkit-scrollbar {
+            width: 6px;
+        }
+        .skill-group::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 3px;
+        }
+        .skill-group::-webkit-scrollbar-thumb {
+            background: #7c3aed;
+            border-radius: 3px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: #d1d5db;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        label:hover {
+            color: #a78bfa;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            accent-color: #7c3aed;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+        }
+
+        input[type="checkbox"]:focus {
+            outline: none;
+            box-shadow: 0 0 8px 2px #a78bfaaa;
+            border-radius: 4px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #7c3aed, #3b82f6);
+            border: none;
+            color: white;
+            padding: 14px 0;
+            font-size: 1.3rem;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #7c3aedbb;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        button:hover {
+            box-shadow: 0 0 30px 6px #a78bfaee;
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #a78bfa, #60a5fa);
+        }
+
+        @media (max-width: 600px) {
+            .skill-container {
+                padding: 30px 30px;
+                border-radius: 16px;
+            }
+            h2 {
+                font-size: 1.6rem;
+            }
+            button {
+                font-size: 1.1rem;
+                padding: 12px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="skill-container">
+        <h2>Select Skills for Voice Interview</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="skill-group">
+                {% for skill in skills %}
+                    <label>
+                        <input type="checkbox" name="skills" value="{{ skill }}" checked />
+                        {{ skill }}
+                    </label>
+                {% endfor %}
+            </div>
+            <button type="submit">🎤 Start Interview</button>
+        </form>
+    </div>
+</body>
+</html>

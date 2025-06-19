@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Upload Resume - SynaptiGrid Voice Interview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
+    <style>
+        /* Background with subtle animated neural pulses */
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Orbitron', sans-serif, monospace;
+            background: #0e0f18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #cbd5e1;
+        }
+
+        /* Glowing neural pulse lines behind */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 120vw;
+            height: 120vh;
+            background: radial-gradient(circle at center, #3b82f6 0%, transparent 60%), 
+                        repeating-conic-gradient(#7c3aed 0deg 10deg, transparent 10deg 20deg);
+            transform: translate(-50%, -50%);
+            filter: blur(120px);
+            animation: pulseGlow 6s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                filter: blur(100px);
+                opacity: 0.3;
+            }
+            50% {
+                filter: blur(130px);
+                opacity: 0.6;
+            }
+        }
+
+        /* Glassmorphic container */
+        .upload-container {
+            position: relative;
+            background: rgba(15, 15, 25, 0.6);
+            border-radius: 20px;
+            padding: 40px 50px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 0 30px 4px #7c3aed55;
+            backdrop-filter: blur(16px);
+            border: 2px solid #7c3aed;
+            z-index: 1;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            color: #a78bfa;
+            text-shadow: 0 0 8px #a78bfa99;
+        }
+
+        input[type="file"] {
+            margin: 20px 0 35px 0;
+            padding: 12px 15px;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            border: none;
+            background: #1f2937;
+            color: #e0e7ff;
+            cursor: pointer;
+            box-shadow: 0 0 10px #7c3aed88;
+            transition: box-shadow 0.4s ease;
+            width: 100%;
+        }
+
+        input[type="file"]:hover, input[type="file"]:focus {
+            box-shadow: 0 0 18px #a78bfacc;
+            outline: none;
+        }
+
+        button {
+            background: linear-gradient(135deg, #7c3aed, #3b82f6);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            padding: 15px 40px;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #7c3aedbb;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            user-select: none;
+        }
+
+        button:hover {
+            box-shadow: 0 0 30px 5px #a78bfaee;
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #a78bfa, #60a5fa);
+        }
+
+        @media (max-width: 500px) {
+            .upload-container {
+                padding: 30px 30px;
+                border-radius: 16px;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <h2>Upload Your Resume</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="resume" accept=".pdf,.doc,.docx" required />
+            <br />
+            <button type="submit">Submit Resume</button>
+        </form>
+    </div>
+</body>
+</html>

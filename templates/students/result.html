@@ -1,0 +1,159 @@
+{% extends 'students/base.html' %}
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    background: #f4f6f8;
+    font-family: 'Inter', sans-serif;
+    color: #111827;
+  }
+
+  .result-container {
+    max-width: 960px;
+    margin: 40px auto;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 40px 35px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+  }
+
+  .result-container h2 {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 25px;
+    font-size: 28px;
+    color: #2563eb;
+  }
+
+  .score {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .result-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.04);
+  }
+
+  .result-table thead {
+    background-color: #f3f4f6;
+  }
+
+  .result-table th,
+  .result-table td {
+    padding: 16px 20px;
+    font-size: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: top;
+  }
+
+  .result-table th {
+    color: #111827;
+    font-weight: 700;
+    background-color: #f9fafb;
+  }
+
+  .result-table td pre {
+    margin: 0;
+    white-space: pre-wrap;
+    font-family: 'Inter', sans-serif;
+    color: #374151;
+  }
+
+  .status-pass {
+    color: #16a34a;
+    font-weight: 600;
+  }
+
+  .status-fail {
+    color: #dc2626;
+    font-weight: 600;
+  }
+
+  .back-btn {
+    display: block;
+    max-width: 260px;
+    margin: 30px auto 0;
+    padding: 14px 0;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+    background: linear-gradient(to right, #3b82f6, #2563eb);
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .back-btn:hover {
+    background: linear-gradient(to right, #2563eb, #1d4ed8);
+    box-shadow: 0 6px 30px rgba(59, 130, 246, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    .result-container {
+      padding: 25px 20px;
+    }
+
+    .result-table th,
+    .result-table td {
+      padding: 12px;
+      font-size: 14px;
+    }
+
+    .back-btn {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<div class="result-container">
+  <h2>Assessment Report</h2>
+
+  <p class="score">
+    <strong>Score:</strong> {{ correct_count }} / {{ total }} ({{ percentage }}%)
+  </p>
+
+  <table class="result-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Question</th>
+        <th>Your Answer</th>
+        <th>Expected Answer</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in responses %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td><pre>{{ r.question }}</pre></td>
+        <td><pre>{{ r.selected }}</pre></td>
+        <td><pre>{{ r.correct }}</pre></td>
+        <td class="{% if r.selected|lower == r.correct|lower %}status-pass{% else %}status-fail{% endif %}">
+          {% if r.selected|lower == r.correct|lower %}
+            ✅ Correct
+          {% else %}
+            ❌ Incorrect
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{% url 'students:dashboard' %}" class="back-btn">⬅ Back to Dashboard</a>
+</div>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'students/base.html' %}
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    background-color: #f9fafb;
+    font-family: 'Inter', sans-serif;
+    color: #1f2937;
+    margin: 0;
+    padding: 0;
+  }
+
+  .exam-container {
+    max-width: 800px;
+    margin: 60px auto;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 40px 32px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e5e7eb;
+  }
+
+  .exam-container h3 {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 32px;
+    color: #111827;
+  }
+
+  .question-block {
+    margin-bottom: 28px;
+    padding: 20px 24px;
+    border-radius: 12px;
+    background-color: #f3f4f6;
+    border-left: 4px solid #3b82f6;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    transition: box-shadow 0.2s ease;
+  }
+
+  .question-block strong {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: #1f2937;
+  }
+
+  .form-check {
+    margin-top: 10px;
+  }
+
+  .form-check-input {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #3b82f6;
+  }
+
+  .form-check-label {
+    font-size: 15px;
+    color: #374151;
+    cursor: pointer;
+  }
+
+  .btn-submit {
+    display: block;
+    width: 100%;
+    padding: 14px 0;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    background-color: #3b82f6;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+    margin-top: 30px;
+  }
+
+  .btn-submit:hover {
+    background-color: #2563eb;
+  }
+</style>
+
+<div class="exam-container">
+  <h3>{{ skill|title }} - {{ difficulty|title }} Level Exam</h3>
+  <form method="post" action="#">
+    {% csrf_token %}
+    {% for q in questions %}
+      <div class="question-block">
+        <strong>Q{{ forloop.counter }}. {{ q.question }}</strong>
+        {% for opt in q.options %}
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="q{{ forloop.parentloop.counter }}" value="{{ opt }}" id="q{{ forloop.parentloop.counter }}_{{ forloop.counter }}" required>
+            <label class="form-check-label" for="q{{ forloop.parentloop.counter }}_{{ forloop.counter }}">
+              {{ opt }}
+            </label>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn-submit">Submit</button>
+  </form>
+</div>
+{% endblock %}

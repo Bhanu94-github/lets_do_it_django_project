@@ -1,0 +1,27 @@
+{% extends "instructors/base.html" %}
+{% load static %}
+
+{% block title %}Instructor Login{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 400px; margin-top: 80px;">
+    <h2 class="mb-4 text-center">👨‍🏫 Instructor Login</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Username</label>
+            <input class="form-control" type="text" name="username" required />
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <input class="form-control" type="password" name="password" required />
+        </div>
+        <button class="btn btn-primary w-100" type="submit">Login</button>
+    </form>
+</div>
+{% endblock %}

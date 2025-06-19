@@ -1,0 +1,140 @@
+{% extends 'students/base.html' %}
+{% block title %}Resume Analyzer{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #f0f0f0;
+    }
+
+    .glass-card {
+        max-width: 90%;
+        margin: 60px auto;
+        padding: 40px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 20px rgba(0, 255, 200, 0.4);
+        border: 1px solid rgba(0, 255, 200, 0.2);
+    }
+
+    .glass-card h2 {
+        text-align: center;
+        color: #00ffc8;
+        margin-bottom: 30px;
+    }
+
+    .glass-card input[type="file"] {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        background: #181818;
+        color: white;
+        border: 1px solid #00ffc8;
+        border-radius: 8px;
+    }
+
+    .glass-card button {
+        padding: 12px 30px;
+        background: #00ffc8;
+        border: none;
+        color: black;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .glass-card button:hover {
+        background: #00e6b2;
+    }
+
+    .feedback-box {
+        margin-top: 30px;
+        padding: 25px;
+        border-radius: 15px;
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid #00ffc8;
+        color: #e0e0e0;
+        font-size: 1rem;
+        overflow-x: auto;
+    }
+
+    .feedback-box h4 {
+        color: #00ffc8;
+        margin-bottom: 15px;
+    }
+
+    .feedback-box .highlight {
+        color: #ff6363;
+        font-weight: bold;
+    }
+
+    .download-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 25px;
+        background-color: #00ffc8;
+        color: black;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .download-btn:hover {
+        background-color: #00e6b2;
+    }
+
+    ul {
+        padding-left: 20px;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="glass-card">
+    <h2>📄 Upload Your Resume</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="resume" required>
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if error %}
+        <p style="color: red; margin-top: 20px;">{{ error }}</p>
+    {% endif %}
+
+    {% if message %}
+        <p style="color: lime; margin-top: 20px;">{{ message }}</p>
+    {% endif %}
+
+    {% if feedback %}
+        <div class="feedback-box">
+            <h4>🧠 AI Feedback:</h4>
+            <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ feedback|linebreaksbr|safe }}</pre>
+        </div>
+
+        {% if feedback_pdf_name %}
+            <a href="{% url 'resumeupload:download_feedback' %}?file={{ feedback_pdf_name }}" class="download-btn">⬇️ Download PDF</a>
+        {% endif %}
+
+        <div class="feedback-box">
+            <h4>📌 Key Points to Improve:</h4>
+            <ul>
+                {% for line in feedback.splitlines %}
+                    {% if "improve" in line|lower or "suggestion" in line|lower or "recommend" in line|lower or "try to" in line|lower %}
+                        <li class="highlight">{{ line }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

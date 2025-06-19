@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowthMate Infotech - Empowering Tech Innovators</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    </head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">GrowthMate Infotech</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#ai-modules">AI Modules</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                    <li><a href="#" class="btn-nav" id="signInBtn">Sign In</a></li>
+                    <li><a href="#" class="btn-nav" id="signUpBtn">Sign Up</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger-menu" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero-section animate-on-scroll">
+    <div class="container">
+        <div class="hero-content">
+            <h2>Empowering the Next Generation of Tech Innovators</h2>
+            <p>GrowthMate Infotech provides cutting-edge software solutions and hands-on training to bridge the gap between education and industry.</p>
+            <a href="#services" class="btn primary-btn">Explore Our Services</a>
+            <a href="#contact" class="btn secondary-btn">Get in Touch</a>
+        </div>
+        <div class="hero-image">
+            <!-- Spline Viewer embedded here -->
+            <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.2/build/spline-viewer.js"></script>
+            <spline-viewer url="https://prod.spline.design/BBuy1TS1DLWPn-im/scene.splinecode" style="width: 100%; height: 400px; border-radius: 12px; box-shadow: 0 0 15px rgba(127, 106, 255, 0.8);"></spline-viewer>
+        </div>
+    </div>
+</section>
+
+        <section id="mission" class="content-section animate-on-scroll">
+            <div class="container">
+                <h3>Our Mission</h3>
+                <p>At GrowthMate Infotech, our mission is to create innovative software solutions while passionately empowering students to excel in the dynamic technology sector. We are committed to providing hands-on training, fostering innovative projects, and offering industry-relevant exposure to ensure our students are future-ready.</p>
+                <div class="mission-points">
+                    <div class="point">
+                        <i class="fas fa-lightbulb"></i>
+                        <h4>Innovation</h4>
+                        <p>Driving creativity and developing cutting-edge software solutions.</p>
+                    </div>
+                    <div class="point">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h4>Education</h4>
+                        <p>Bridging the skill gap with practical, industry-focused training.</p>
+                    </div>
+                    <div class="point">
+                        <i class="fas fa-handshake"></i>
+                        <h4>Empowerment</h4>
+                        <p>Equipping students with the skills and confidence to thrive.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="content-section animate-on-scroll">
+            <div class="container">
+                <h3>Our Services</h3>
+                <p class="section-description">We offer a comprehensive suite of services to both businesses and aspiring tech professionals.</p>
+                <div class="service-grid">
+                    <div class="service-item">
+                        <i class="fas fa-laptop-code"></i>
+                        <h4>Software Development</h4>
+                        <p>Customized software solutions for diverse industries like IT, healthcare, and education.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-user-graduate"></i>
+                        <h4>Internship Programs</h4>
+                        <p>Hands-on internships with real-time projects for practical industry experience.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <h4>Workshops & Training</h4>
+                        <p>Skill-enhancement workshops on trending technologies to keep you updated.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-briefcase"></i>
+                        <h4>Placement Assistance</h4>
+                        <p>Connecting talented individuals with top companies for promising career opportunities.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-paint-brush"></i>
+                        <h4>Web Design & Development</h4>
+                        <p>Creating stunning and functional websites tailored to your business needs.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Product Management & Marketing</h4>
+                        <p>Guiding products from concept to market and strategizing effective outreach.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="features" class="content-section animate-on-scroll">
+            <div class="container">
+                <h3>Why Choose GrowthMate?</h3>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-award"></i>
+                        <h4>Expert Trainers & Mentors</h4>
+                        <p>Learn from industry veterans with years of practical experience.</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-project-diagram"></i>
+                        <h4>Real-time Projects</h4>
+                        <p>Work on live projects to build a strong portfolio and practical skills.</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <h4>Innovation Hub</h4>
+                        <p>A vibrant environment that encourages creativity and problem-solving.</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-users"></i>
+                        <h4>Strong Industry Connections</h4>
+                        <p>Benefit from our network for internships and placement opportunities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ai-modules" class="content-section ai-modules-section">
+            <div class="container">
+                <h3>Explore Our Innovative AI Modules</h3>
+                <p class="section-description">Discover the power of cutting-edge artificial intelligence integrated into our solutions.</p>
+                <div class="ai-modules-grid">
+                    <div class="ai-module animate-on-scroll">
+                        <div class="module-icon">
+                            <i class="fas fa-keyboard"></i>
+                            <i class="fas fa-arrow-right module-arrow"></i>
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h4>Text to Text Transformation</h4>
+                        <p>Experience seamless text manipulation, summarization, and generation powered by advanced AI algorithms.</p>
+                        <button class="btn secondary-btn ai-module-btn">Learn More</button>
+                    </div>
+                    <div class="ai-module animate-on-scroll" data-animation-delay="0.2s">
+                        <div class="module-icon">
+                            <i class="fas fa-microphone"></i>
+                            <i class="fas fa-exchange-alt module-arrow"></i>
+                            <i class="fas fa-volume-up"></i>
+                        </div>
+                        <h4>Voice to Voice Conversion</h4>
+                        <p>Utilize our AI to convert and synthesize voice with remarkable clarity and natural intonation.</p>
+                        <button class="btn secondary-btn ai-module-btn">Explore</button>
+                    </div>
+                    <div class="ai-module animate-on-scroll" data-animation-delay="0.4s">
+                        <div class="module-icon">
+                            <i class="fas fa-user-circle"></i>
+                            <i class="fas fa-sync-alt module-arrow"></i>
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Face to Face Interaction Analysis</h4>
+                        <p>Gain insights from facial cues and interactions through our sophisticated AI-driven analysis tools.</p>
+                        <button class="btn secondary-btn ai-module-btn">Discover</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="content-section animate-on-scroll">
+            <div class="container">
+                <h3>Contact Us</h3>
+                <p class="section-description">Have questions? We'd love to hear from you. Reach out to us through the details below or fill out the form.</p>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Address:IT-Tower Nalgonda, 508001. Telangana, India.</p>
+                        <p><i class="fas fa-phone-alt"></i> Phone:+91 9989154435</p>
+                        <p><i class="fas fa-envelope"></i> Email:info@growthmateinfotech.in</p>
+                    </div>
+                    <div class="contact-form">
+                        <form action="#" method="POST">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject:</label>
+                                <input type="text" id="subject" name="subject">
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message:</label>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn primary-btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 GrowthMate Infotech Software Solution Private Limited. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-square"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter-square"></i></a>
+            </div>
+        </div>
+    </footer>
+
+     <!-- Sign In Modal -->
+  <div id="signInModal" class="modal" aria-modal="true" role="dialog" aria-labelledby="signInModalTitle">
+    <div class="modal-content">
+      <span class="close-button" aria-label="Close Sign In form">&times;</span>
+      <h2 id="signInModalTitle">Sign In</h2>
+      <form id="signInForm">
+        <div class="form-group">
+          <label for="signInEmail">Email:</label>
+          <input type="email" id="signInEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="signInPassword">Password:</label>
+          <input type="password" id="signInPassword" required>
+        </div>
+        <button type="submit" class="btn primary-btn">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Sign Up Modal -->
+  <div id="signUpModal" class="modal" aria-modal="true" role="dialog" aria-labelledby="signUpModalTitle">
+    <div class="modal-content">
+      <span class="close-button" aria-label="Close Sign Up form">&times;</span>
+      <h2 id="signUpModalTitle">Sign Up</h2>
+      <form id="signUpForm">
+        <div class="form-group">
+          <label for="signUpName">Full Name:</label>
+          <input type="text" id="signUpName" required>
+        </div>
+        <div class="form-group">
+          <label for="signUpUsername">Username:</label>
+          <input type="text" id="signUpUsername" required>
+        </div>
+        <div class="form-group">
+          <label for="signUpEmail">Email:</label>
+          <input type="email" id="signUpEmail" required>
+        </div>
+        <div class="form-group">
+            <label for="signUpPhone">Phone:</label>
+            <input type="tel" id="signUpPhone" class="input-field" required>
+        </div>
+
+
+        <div class="form-group">
+          <label for="signUpPassword">Password:</label>
+          <input type="password" id="signUpPassword" required>
+        </div>
+        <div class="form-group">
+          <label for="signUpConfirmPassword">Confirm Password:</label>
+          <input type="password" id="signUpConfirmPassword" required>
+        </div>
+        <button type="submit" class="btn primary-btn">Register</button>
+      </form>
+    </div>
+  </div>
+
+    <div id="gameOverModal" class="modal" aria-modal="true" role="dialog" aria-labelledby="gameOverModalTitle">
+        <div class="modal-content">
+            <span class="close-button" aria-label="Close Game Over popup">&times;</span>
+            <h2 id="gameOverModalTitle">Game Over!</h2>
+            <p style="text-align: center; font-size: 1.2em; margin-bottom: 20px;">You've reached the end of the journey. Explore our services or contact us!</p>
+            <div style="text-align: center;">
+                <button class="btn primary-btn" onclick="location.reload()">Restart Journey</button>
+                <a href="#contact" class="btn secondary-btn" onclick="closeModal(document.getElementById('gameOverModal'))">Contact Us</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="startGameModal" class="modal" aria-modal="true" role="dialog" aria-labelledby="startGameModalTitle">
+        <div class="modal-content">
+            <h2 id="startGameModalTitle" style="margin-bottom: 20px;">Welcome to GrowthMate Infotech!</h2>
+            <p style="text-align: center; font-size: 1.2em; margin-bottom: 30px;">Embark on a futuristic journey through our digital tunnels. Click "Start" to begin!</p>
+            <div style="text-align: center;">
+                <button class="btn primary-btn" id="startGameBtn">Start Journey</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="static/scripts.js"></script>
+</body>
+</html>

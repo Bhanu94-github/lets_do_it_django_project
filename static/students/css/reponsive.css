@@ -1,0 +1,9 @@
+@media screen and (max-width: 768px) {
+  .token-card-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .token-card {
+    width: 90%;
+  }
+}

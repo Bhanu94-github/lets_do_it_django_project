@@ -1,0 +1,189 @@
+{% extends "instructors/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Instructor Dashboard - {{ instructor_username }}{% endblock %}
+
+{% block content %}
+<h3 class="mb-4">👋 Welcome, <strong>{{ instructor_username }}</strong></h3>
+
+<form method="get" class="mb-4">
+    <input name="search" value="{{ search_query }}" class="form-control shadow-sm" placeholder="🔍 Search student by username or name..." id="studentSearchBox"/>
+</form>
+
+<div class="row">
+    <!-- Left Sidebar -->
+    <div class="col-md-3 mb-3">
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action active" data-tab="token-management">🎯 Token Management</a>
+            <a href="#" class="list-group-item list-group-item-action" data-tab="token-logs">📄 Token Logs</a>
+            <a href="#" class="list-group-item list-group-item-action" data-tab="analytics">📈 Analytics</a>
+        </div>
+    </div>
+
+    <!-- Right Content -->
+    <div class="col-md-9">
+        <!-- TOKEN MANAGEMENT -->
+        <div id="token-management" class="tab-pane active">
+            <h5 class="mb-3">🎓 Manage Students</h5>
+            {% if students %}
+                <div class="list-group mb-4" id="studentList">
+                    {% for student in students %}
+                    <a href="#" class="list-group-item list-group-item-action student-tab-link" data-bs-toggle="modal" data-bs-target="#studentModal-{{ student.username }}">
+                        👤 {{ student.name }} ({{ student.username }})
+                    </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-muted">No approved students found.</p>
+            {% endif %}
+        </div>
+
+        <!-- TOKEN LOGS -->
+        <div id="token-logs" class="tab-pane" style="display:none;">
+            {% if logs %}
+                <ul class="list-group shadow-sm">
+                    {% for log in logs %}
+                    <li class="list-group-item">
+                        🕒 {{ log.timestamp|date:"Y-m-d H:i:s" }} |
+                        👤 <strong>{{ log.student }}</strong> |
+                        📌 Module: <code>{{ log.module|default:"general" }}</code> |
+                        ✍️ {{ log.action }} |
+                        🔢 Changed: <code>{{ log.tokens_changed }}</code>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-muted">No logs found.</p>
+            {% endif %}
+        </div>
+
+        <!-- ANALYTICS -->
+        <div id="analytics" class="tab-pane" style="display:none;">
+            <h4 class="mb-3">📊 Tokens Per Student</h4>
+            <div class="shadow-sm">{{ token_chart_div|safe }}</div>
+
+            {% if score_chart_div %}
+                <h4 class="mt-5 mb-3">📈 Assessment Scores Over Time</h4>
+                <div class="shadow-sm">{{ score_chart_div|safe }}</div>
+
+                <h4 class="mt-5 mb-3">🏆 Student Ranking</h4>
+                <div class="shadow-sm">{{ summary_html|safe }}</div>
+            {% else %}
+                <p class="text-muted">No assessment results found.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- STUDENT MODALS -->
+{% for student in students %}
+<div class="modal fade" id="studentModal-{{ student.username }}" tabindex="-1" aria-labelledby="studentModalLabel-{{ student.username }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="studentModalLabel-{{ student.username }}">
+                    👤 {{ student.name }} ({{ student.username }})
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>General Tokens:</strong> 
+                    <span class="badge bg-dark" id="tokens-{{ student.username }}">{{ student.tokens }}</span>
+                </p>
+                <p><strong>Exam Attempts:</strong> {{ student.exam_attempts }}</p>
+
+                <div class="btn-group mb-3">
+                    <button class="btn btn-sm btn-success inc-token-btn" data-username="{{ student.username }}" data-module="" data-value="1">➕</button>
+                    <button class="btn btn-sm btn-danger dec-token-btn" data-username="{{ student.username }}" data-module="" data-value="-1">➖</button>
+                    <button class="btn btn-sm btn-secondary reset-token-btn" data-username="{{ student.username }}" data-action="reset_all">🔁 Reset</button>
+                </div>
+
+                <h6 class="mt-3">📦 Module-wise Token Management</h6>
+                {% for module in student.ai_tokens.keys %}
+                <p>
+                    <strong>{{ module|clean_token_label }}:</strong>
+                    <span class="badge bg-info" id="tokens-{{ student.username }}-{{ module }}">{{ student.ai_tokens|dict_get:module }}</span>
+                    <button class="btn btn-sm btn-outline-success inc-token-btn" data-username="{{ student.username }}" data-module="{{ module }}" data-value="1">➕</button>
+                    <button class="btn btn-sm btn-outline-danger dec-token-btn" data-username="{{ student.username }}" data-module="{{ module }}" data-value="-1">➖</button>
+                    <button class="btn btn-sm btn-outline-secondary reset-module-btn" data-username="{{ student.username }}" data-module="{{ module }}">🔁</button>
+                </p>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">⬅️ Back to All Students</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Sidebar Tab Switch
+    document.querySelectorAll('.list-group-item[data-tab]').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelectorAll('.list-group-item[data-tab]').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            const tabId = this.dataset.tab;
+            document.querySelectorAll('.tab-pane').forEach(div => div.style.display = 'none');
+            document.getElementById(tabId).style.display = 'block';
+        });
+    });
+
+    // Token update logic
+    function updateToken(username, action, module = "", value = 0) {
+        fetch("{% url 'instructor_panel:update_token' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ username, action, module, value })
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if (data.status === 'success') {
+                location.reload();
+            } else {
+                alert(data.message || 'Token update failed.');
+            }
+        });
+    }
+
+    document.querySelectorAll('.inc-token-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            updateToken(btn.dataset.username, '', btn.dataset.module, parseInt(btn.dataset.value));
+        });
+    });
+
+    document.querySelectorAll('.dec-token-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            updateToken(btn.dataset.username, '', btn.dataset.module, parseInt(btn.dataset.value));
+        });
+    });
+
+    document.querySelectorAll('.reset-token-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            updateToken(btn.dataset.username, 'reset_all');
+        });
+    });
+
+    document.querySelectorAll('.reset-module-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            updateToken(btn.dataset.username, 'reset_module', btn.dataset.module);
+        });
+    });
+
+    // Student Filter
+    document.getElementById('studentSearchBox').addEventListener('keyup', function () {
+        const filter = this.value.toLowerCase();
+        document.querySelectorAll('#studentList .list-group-item').forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(filter) ? '' : 'none';
+        });
+    });
+</script>
+{% endblock %}

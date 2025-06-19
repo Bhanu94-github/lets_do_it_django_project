@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <title>Interview Result - SynaptiGrid</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto&display=swap');
+
+    /* Base and background */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #121421;
+      color: #cbd5e1;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Container */
+    .result-container {
+      background: linear-gradient(145deg, #1f2233, #151822);
+      padding: 40px 50px;
+      border-radius: 16px;
+      box-shadow:
+        0 0 8px #6a5cff99,
+        0 0 20px #7f6affaa,
+        inset 0 0 30px #4637f011;
+      max-width: 620px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Headings */
+    h2, h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: #7f6aff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 8px #7f6affcc;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+    }
+
+    h3 {
+      font-size: 1.6rem;
+      margin-top: 40px;
+    }
+
+    /* Paragraphs */
+    p {
+      font-size: 1.1rem;
+      margin: 8px 0;
+      color: #b0b7cd;
+    }
+
+    /* List */
+    ul {
+      margin-top: 25px;
+      padding-left: 25px;
+      text-align: left;
+      max-height: 260px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #7f6aff transparent;
+    }
+
+    ul::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ul::-webkit-scrollbar-thumb {
+      background-color: #7f6aff;
+      border-radius: 3px;
+    }
+
+    li {
+      margin-bottom: 14px;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #d0d4e7;
+      border-left: 3px solid #7f6aff;
+      padding-left: 10px;
+      transition: color 0.3s ease;
+    }
+
+    li strong {
+      color: #a6aaff;
+    }
+
+    li:hover {
+      color: #fff;
+    }
+
+    /* Back button */
+    a {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 14px 28px;
+      background: linear-gradient(90deg, #7f6aff, #645bff);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1.2px;
+      box-shadow: 0 0 10px #7f6affcc;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    a:hover {
+      background: linear-gradient(90deg, #645bff, #7f6aff);
+      box-shadow: 0 0 20px #a8a8ffdd;
+    }
+
+    /* Responsive */
+    @media (max-width: 620px) {
+      .result-container {
+        padding: 30px 25px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      h2 {
+        font-size: 2rem;
+      }
+
+      h3 {
+        font-size: 1.3rem;
+      }
+
+      p, li {
+        font-size: 0.9rem;
+      }
+
+      a {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="result-container">
+    <h2>🎉 Interview Feedback</h2>
+    <p><strong>Skills Evaluated:</strong> {{ skills|join:", " }}</p>
+    <p><strong>Overall Score:</strong> {{ score }}%</p>
+
+    <h3>📋 Detailed Feedback</h3>
+    <ul>
+      {% for skill, feedback in feedback_dict.items %}
+        <li><strong>{{ skill }}:</strong> {{ feedback }}</li>
+      {% endfor %}
+    </ul>
+
+    <a href="{% url 'students:dashboard' %}">⬅ Back to Dashboard</a>
+  </div>
+</body>
+</html>
